@@ -76,7 +76,7 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	void Flip()
+	void Flip() // - Разворот персонажа. При движении только по горизонтали
 	{
 		if (projectAxis == ProjectAxis.onlyX)
 		{
