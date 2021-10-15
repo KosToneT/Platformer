@@ -7,19 +7,19 @@ public class PlayerControl : MonoBehaviour
 
 	public enum ProjectAxis { onlyX = 0, xAndY = 1 };
 	public ProjectAxis projectAxis = ProjectAxis.onlyX;
-	public float speed = 150;
-	public float addForce = 7;
-	private KeyCode leftButton = KeyCode.A;
-	private KeyCode rightButton = KeyCode.D;
+	public float speed = 150; // - скорость движения
+	public float addForce = 7; // - если Оnly X, будет использовано для прыжка. Во втором режиме, значение addForce будет прибавлено к speed
+	private KeyCode leftButton = KeyCode.A; 
+	private KeyCode rightButton = KeyCode.D; 
 	//private KeyCode upButton = KeyCode.W;
 	//private KeyCode downButton = KeyCode.S;
-	private KeyCode addForceButton = KeyCode.Space;
-	public bool isFacingRight = true;
-	private Vector3 direction;
-	private float vertical;
-	private float horizontal;
-	private Rigidbody2D body;
-	private bool jump;
+	private KeyCode addForceButton = KeyCode.Space; 
+	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true.
+	private Vector3 direction; 
+	private float vertical; 
+	private float horizontal; 
+	private Rigidbody2D body; 
+	private bool jump; 
 
 	void Start()
 	{
