@@ -24,7 +24,7 @@ public class PlayerControl : MonoBehaviour
 	void Start()
 	{
 		body = GetComponent<Rigidbody2D>();
-		body.fixedAngle = true;
+		body.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		if (projectAxis == ProjectAxis.xAndY)
 		{
