@@ -271,7 +271,15 @@ MonoBehaviour:
   projectAxis: 0
   speed: 150
   addForce: 7
+  leftButton: 97
+  rightButton: 100
+  addForceButton: 32
   isFacingRight: 1
+--- !u!4 &355709675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6198131451316441735, guid: 99dd03b539f60cb4e8b9cb26c614e855, type: 3}
+  m_PrefabInstance: {fileID: 1216178605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,11 +363,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1144877456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6198131450263653012, guid: 99dd03b539f60cb4e8b9cb26c614e855, type: 3}
+  m_PrefabInstance: {fileID: 1216178605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1144877457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6198131450263653013, guid: 99dd03b539f60cb4e8b9cb26c614e855, type: 3}
   m_PrefabInstance: {fileID: 1216178605}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1144877458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144877456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebdc726572f2d149bd59ef63d8cf98e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  bullet: {fileID: 4109259997766044131, guid: cf16f5f70434e7349953a3cb3d62128b, type: 3}
+  gunPoint: {fileID: 355709675}
+  fireRate: 1
 --- !u!1001 &1216178605
 PrefabInstance:
   m_ObjectHideFlags: 0
