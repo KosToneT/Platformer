@@ -134,7 +134,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d051fd676ffd341aafe2cf831230b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectAxis: 0
-  isFacingRight: 1
-  leftButton: 97
-  rightButton: 100
