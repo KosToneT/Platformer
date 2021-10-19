@@ -31,7 +31,6 @@ public class FireScript : MonoBehaviour
 			curTimeout = 0;
 			Rigidbody2D clone = Instantiate(bullet, gunPoint.position, Quaternion.identity) as Rigidbody2D;
 			clone.velocity = transform.TransformDirection(gunPoint.right * speed);
-            print(clone.velocity);
             if (clone.velocity.x < 0) {
                 Vector3 scale = clone.transform.localScale;
                 clone.transform.localScale = new Vector3(-1 * scale.x, scale.y, scale.z);
