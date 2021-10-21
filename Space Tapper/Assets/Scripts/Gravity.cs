@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D body;
     private PlayerControl player;
-    public KeyCode gravityButton = KeyCode.Z;
+    public KeyCode gravityButton = KeyCode.V;
     private bool top;
 
     void Start()
     {
         player = GetComponent<PlayerControl>();
-        rb = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody2D>();
     }
 
 
@@ -20,7 +20,7 @@ public class Gravity : MonoBehaviour
     {
         if (Input.GetKeyDown(gravityButton))
         {
-            rb.gravityScale *= -1;
+            body.gravityScale *= -1;
             Ratate();
         }
     }
