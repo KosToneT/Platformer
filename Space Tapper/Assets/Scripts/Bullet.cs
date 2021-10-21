@@ -5,9 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
+	public float destroy;
+
 	void Start()
 	{
-		Destroy(gameObject, 1); // - уничтожить объект по истечению указанного времени (сек), если пуля никуда не попала
+		Destroy(gameObject, destroy); // - уничтожить объект по истечению указанного времени (сек), если пуля никуда не попала
 	}
 
 	void OnTriggerEnter2D(Collider2D coll)
