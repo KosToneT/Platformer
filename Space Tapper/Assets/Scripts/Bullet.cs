@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 		{
 			switch (coll.tag)
 			{
-				case "Ground":
+				case "Grou":
 					break;
 				case "что-то ещё":
 					break;

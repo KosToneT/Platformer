@@ -18,18 +18,18 @@ public class PlayerControl : MonoBehaviour
 	private Vector3 direction; 
 	private float vertical; 
 	private float horizontal; 
-	private Rigidbody2D body; 
+	private Rigidbody2D rb; 
 	private bool jump; 
 
 	void Start()
 	{
-		body = GetComponent<Rigidbody2D>();
-		body.constraints = RigidbodyConstraints2D.FreezeRotation;
+		rb = GetComponent<Rigidbody2D>();
+		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		if (projectAxis == ProjectAxis.xAndY)
 		{
-			body.gravityScale = 0;
-			body.drag = 10;
+			rb.gravityScale = 0;
+			rb.drag = 10;
 		}
 	}
 
@@ -37,7 +37,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (coll.transform.tag == "Ground")
 		{
-			body.drag = 10;
+			rb.drag = 10;
 			jump = true;
 		}
 	}
@@ -46,32 +46,32 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (coll.transform.tag == "Ground")
 		{
-			body.drag = 0;
+			rb.drag = 0;
 			jump = false;
 		}
 	}
 
 	void FixedUpdate()
 	{
-		body.AddForce(direction * body.mass * speed);
+		rb.AddForce(direction * rb.mass * speed);
 
-		if (Mathf.Abs(body.velocity.x) > speed / 100f)
+		if (Mathf.Abs(rb.velocity.x) > speed / 100f)
 		{
-			body.velocity = new Vector2(Mathf.Sign(body.velocity.x) * speed / 100f, body.velocity.y);
+			rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * speed / 100f, rb.velocity.y);
 		}
 
 		if (projectAxis == ProjectAxis.xAndY)
 		{
-			if (Mathf.Abs(body.velocity.y) > speed / 100f)
+			if (Mathf.Abs(rb.velocity.y) > speed / 100f)
 			{
-				body.velocity = new Vector2(body.velocity.x, Mathf.Sign(body.velocity.y) * speed / 100f);
+				rb.velocity = new Vector2(rb.velocity.x, Mathf.Sign(rb.velocity.y) * speed / 100f);
 			}
 		}
 		else
 		{
 			if (Input.GetKey(addForceButton) && jump)
 			{
-				body.velocity = new Vector2(0, addForce);
+				rb.velocity = new Vector2(0, addForce);
 			}
 		}
 	}
