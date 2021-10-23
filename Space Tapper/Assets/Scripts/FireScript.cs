@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class FireScript : MonoBehaviour
 {
-
-	public float speed = 10; // - скорость пули
+	[Header("Components")]
 	public Rigidbody2D bullet; // - префаб нашей пули
 	public Transform gunPoint; // - точка рождения
+
+	[Header("parameters")]
+	public float speed = 10; // - скорость пули
 	public float fireRate = 1; // - скорострельность
 
 	private float curTimeout;

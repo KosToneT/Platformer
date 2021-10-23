@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
+    [Header("Components")]
+    private Transform player;
 
     public float dumping = 1.5f;
     public Vector2 offset = new Vector2(2f, 1f);
     public bool isLeft;
-    private Transform player;
     private int lastX;
 
     void Start()

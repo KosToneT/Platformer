@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour
 {
+    [Header("Components")]
     private Rigidbody2D body;
     private PlayerControl player;
+
+    [Header("Movement Variables")]
     public KeyCode gravityButton = KeyCode.V;
     private bool top;
 

@@ -1,25 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
 public class PlayerControl : MonoBehaviour
 {
-
+	[Header("Components")]
+	private Rigidbody2D rb;
 	public enum ProjectAxis { onlyX = 0, xAndY = 1 };
 	public ProjectAxis projectAxis = ProjectAxis.onlyX;
+	private Vector3 direction;
+
+	[Header("Movement Variables")]
 	public float speed = 150; // - скорость движения
-	public float addForce = 7; // - если Оnly X, будет использовано для прыжка. Во втором режиме, значение addForce будет прибавлено к speed
 	public KeyCode leftButton = KeyCode.A;
 	public KeyCode rightButton = KeyCode.D;
 	//private KeyCode upButton = KeyCode.W;
 	//private KeyCode downButton = KeyCode.S;
-	public KeyCode addForceButton = KeyCode.Space; 
+	public KeyCode addForceButton = KeyCode.Space;
 	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true.
-	private Vector3 direction; 
-	private float vertical; 
-	private float horizontal; 
-	private Rigidbody2D rb; 
-	private bool jump; 
+	private float vertical;
+	private float horizontal;
+
+	[Header("Jump Variables")]
+	public float AddForce = 7; // - если Оnly X, будет использовано для прыжка. Во втором режиме, значение addForce будет прибавлено к speed
+	private bool jump;
 
 	void Start()
 	{
@@ -71,7 +77,7 @@ public class PlayerControl : MonoBehaviour
 		{
 			if (Input.GetKey(addForceButton) && jump)
 			{
-				rb.velocity = new Vector2(0, addForce);
+				rb.velocity = new Vector2(0, AddForce);
 			}
 		}
 	}
@@ -124,11 +130,11 @@ public class PlayerControl : MonoBehaviour
 		{
 			if (Input.GetKeyDown(addForceButton))
 			{
-				speed += addForce;
+				speed += AddForce;
 			}
 			else if (Input.GetKeyUp(addForceButton))
 			{
-				speed -= addForce;
+				speed -= AddForce;
 			}
 			direction = new Vector2(horizontal, vertical);
 		}
