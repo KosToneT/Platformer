@@ -11,15 +11,15 @@ public class PlayerControl : MonoBehaviour
 	private Vector3 direction;
 
 	[Header("Movement Variables")]
-	public float speed = 150; // - скорость движения
+	public float speed; // - скорость движения
 	public KeyCode leftButton = KeyCode.A;
 	public KeyCode rightButton = KeyCode.D;
 	public KeyCode jumpForceButton = KeyCode.Space;
-	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true.
+	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true
 	private float horizontal;
 
 	[Header("Jump Variables")]
-	public float jumpForce = 7;
+	public float jumpForce;
 	private bool isGrounded;
 
 	void Start()
