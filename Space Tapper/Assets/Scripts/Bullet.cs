@@ -5,9 +5,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	[Header("time to destruction")]
-	public float destroy;
+	[SerializeField] private float destroy;
 
-	void Start()
+	private void Start()
 	{
 		Destroy(gameObject, destroy); // - уничтожить объект по истечению указанного времени (сек), если пуля никуда не попала
 	}

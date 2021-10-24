@@ -7,15 +7,14 @@ public class Gravity : MonoBehaviour
     private PlayerControl player;
 
     [Header("Movement Variables")]
-    public KeyCode gravityButton = KeyCode.V;
+    [SerializeField] private KeyCode gravityButton = KeyCode.V;
     private bool top;
 
-    void Start()
+    private void Awake()
     {
         player = GetComponent<PlayerControl>();
         body = GetComponent<Rigidbody2D>();
     }
-
 
     void Update()
     {

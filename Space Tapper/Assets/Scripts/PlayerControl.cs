@@ -11,56 +11,51 @@ public class PlayerControl : MonoBehaviour
 	private Vector3 direction;
 
 	[Header("Movement Variables")]
-	[SerializeField] private float speed;
-	[SerializeField] private KeyCode leftButton = KeyCode.A;
-	[SerializeField] private KeyCode rightButton = KeyCode.D;
-	[SerializeField] private KeyCode jumpForceButton = KeyCode.Space;
+	[SerializeField] private float speedRun = 10;
+	[SerializeField] private float timeSmooth = 0.12f;
+	private Vector2 speed;
+	private Vector2 acceleration;
 	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true
-	private float horizontal;
 
 	[Header("Jump Variables")]
 	[SerializeField] private float jumpForce;
 	[SerializeField] private bool isGrounded;
 
-	void Start()
-	{
+    private void Awake()
+    {
 		rb = GetComponent<Rigidbody2D>();
-		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 	}
 
-	void FixedUpdate()
+    private void Start()
+    {
+		Controller.controller.Inputs.Main.Jump.performed += _ => Jump();
+    }
+
+	private void FixedUpdate()
 	{
-		rb.AddForce(direction * rb.mass * speed);
+		Move();
+	}
 
-		if (Input.GetKey(leftButton))
-		{
-			horizontal = -1;
-		}
-		else if (Input.GetKey(rightButton))
-		{
-			horizontal = 1;
-		}
-		else
-		{
-			horizontal = 0;
-		}
+	private void Move()
+    {
+		float side = Controller.controller.Inputs.Main.Move.ReadValue<float>(); // направление игрока
 
-		direction = new Vector2(horizontal * speed, 0);
+		speed = Vector2.SmoothDamp(speed, new Vector2(side, 0), ref acceleration, timeSmooth);
 
-		if (horizontal > 0 && !isFacingRight) Flip(); else if (horizontal < 0 && isFacingRight) Flip();
+		transform.Translate(speed * speedRun * Time.fixedDeltaTime);
 
-		if (Mathf.Abs(rb.velocity.x) > speed / 100f)
+		if (side > 0 && !isFacingRight) Flip(); else if (side < 0 && isFacingRight) Flip();
+	}
+
+	private void Jump()
+    {
+		if (isGrounded)
 		{
-			rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * speed / 100f, rb.velocity.y);
-		}
-
-		if (Input.GetKey(jumpForceButton) && isGrounded)
-		{
-			rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+			rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D coll)
+	private void OnCollisionStay2D(Collision2D coll)
 	{
 		if (coll.transform.tag == "Ground")
 		{
@@ -69,7 +64,7 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D coll)
+	private void OnCollisionExit2D(Collision2D coll)
 	{
 		if (coll.transform.tag == "Ground")
 		{
@@ -77,8 +72,16 @@ public class PlayerControl : MonoBehaviour
 			isGrounded = false;
 		}
 	}
+	private void OnCollisionEnter2D(Collision2D coll)
+    {
+		if (coll.transform.tag == "Ground")
+		{
+			rb.drag = 10;
+			isGrounded = true;
+		}
+	}
 
-	void Flip() // - –азворот персонажа
+	private void Flip() // - –азворот персонажа
 	{
 		isFacingRight = !isFacingRight;
 		Vector3 theScale = transform.localScale;

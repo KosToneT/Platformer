@@ -8,13 +8,14 @@ public class FireScript : MonoBehaviour
 
 	[Header("parameters")]
 	public float speed = 10; // - скорость пули
-	public float fireRate = 1; // - скорострельность
+	public float fireRate = 15; // - скорострельность
 
 	private float curTimeout;
 
-	void Update()
+    void Update()
 	{
-		if (Input.GetMouseButton(0))
+		float side = Controller.controller.Inputs.Main.Fire.ReadValue<float>();
+		if (side > 0)
 		{
 			Fire();
 		}
