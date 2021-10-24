@@ -32,7 +32,7 @@ public class CameraControl : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (player)
         {
