@@ -33,6 +33,13 @@ public class PlayerControl : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		//rb.AddForce(direction * rb.mass * speedRun);
+
+		//if (Mathf.Abs(rb.velocity.x) > speedRun / 100f)
+		//{
+		//	rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * speedRun / 100f, rb.velocity.y);
+		//}
+
 		Move();
 	}
 
@@ -57,28 +64,20 @@ public class PlayerControl : MonoBehaviour
 
 	private void OnCollisionStay2D(Collision2D coll)
 	{
-		if (coll.transform.tag == "Ground")
-		{
-			rb.drag = 10;
-			isGrounded = true;
-		}
+		rb.drag = 10;
+		isGrounded = true;
+	}
+
+	private void OnCollisionEnter2D(Collision2D coll)
+	{
+		rb.drag = 10;
+		isGrounded = true;
 	}
 
 	private void OnCollisionExit2D(Collision2D coll)
 	{
-		if (coll.transform.tag == "Ground")
-		{
-			rb.drag = 0;
-			isGrounded = false;
-		}
-	}
-	private void OnCollisionEnter2D(Collision2D coll)
-    {
-		if (coll.transform.tag == "Ground")
-		{
-			rb.drag = 10;
-			isGrounded = true;
-		}
+		rb.drag = 0;
+		isGrounded = false;
 	}
 
 	private void Flip() // - Разворот персонажа
