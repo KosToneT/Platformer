@@ -41,6 +41,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""6bb51e29-0ee3-4c22-ad80-070257f36831"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +106,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3a150fc-850d-4916-a72a-6311a5b4a09d"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -109,6 +128,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
         m_Main_Fire = m_Main.FindAction("Fire", throwIfNotFound: true);
+        m_Main_Dash = m_Main.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,6 +181,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_Jump;
     private readonly InputAction m_Main_Fire;
+    private readonly InputAction m_Main_Dash;
     public struct MainActions
     {
         private @Controls m_Wrapper;
@@ -168,6 +189,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
         public InputAction @Fire => m_Wrapper.m_Main_Fire;
+        public InputAction @Dash => m_Wrapper.m_Main_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +208,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_MainActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnFire;
+                @Dash.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +224,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -208,5 +236,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

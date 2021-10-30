@@ -5,9 +5,6 @@ public class Gravity : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D body;
     private PlayerControl player;
-
-    [Header("Movement Variables")]
-    [SerializeField] private KeyCode gravityButton = KeyCode.V;
     private bool top;
 
     private void Awake()
@@ -18,7 +15,7 @@ public class Gravity : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(gravityButton))
+        //if (Input.GetKeyDown())
         {
             body.gravityScale *= -1;
             Ratate();

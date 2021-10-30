@@ -3,12 +3,12 @@ using UnityEngine;
 public class FireScript : MonoBehaviour
 {
 	[Header("Components")]
-	public Rigidbody2D bullet; // - префаб нашей пули
-	public Transform gunPoint; // - точка рождения
+	[SerializeField] private Rigidbody2D bullet; // - префаб нашей пули
+	[SerializeField] private Transform gunPoint; // - точка рождения
 
 	[Header("parameters")]
-	public float speed = 10; // - скорость пули
-	public float fireRate = 15; // - скорострельность
+	[SerializeField] private float speed = 10; // - скорость пули
+	[SerializeField] private float fireRate = 15; // - скорострельность
 
 	private float curTimeout;
 
@@ -17,6 +17,7 @@ public class FireScript : MonoBehaviour
 		float side = Controller.controller.Inputs.Main.Fire.ReadValue<float>();
 		if (side > 0)
 		{
+			curTimeout += Time.deltaTime;
 			Fire();
 		}
 		else
@@ -28,7 +29,7 @@ public class FireScript : MonoBehaviour
 
 	void Fire()
 	{
-		curTimeout += Time.deltaTime;
+		
 		if (curTimeout > fireRate)
 		{
 			curTimeout = 0;
