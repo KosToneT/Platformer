@@ -23,7 +23,8 @@ public class PlayerControl : MonoBehaviour
 
 	[Header("Переменные дэша")]
 	[SerializeField] private float dashForce = 0.5f;
-	[SerializeField] private float dash = 0.1f;
+	[SerializeField] private float timeDash = 0.2f;
+	private float dash = 0.0f;
 
 	[Header("Защита от прохождение сквозь стены")]
 	[SerializeField] private float maxRay = 0.7f;
@@ -54,15 +55,13 @@ public class PlayerControl : MonoBehaviour
 
 		float side = Controller.controller.Inputs.Main.Dash.ReadValue<float>();
 		if(side > 0)
-
 		{
+			speed += speed.normalized * dash;
 			if (dash == 0.0f)
 			{
 				StartCoroutine(Dash());
 			}
 		}
-
-		speed += speed.normalized * dash;
 	}
 
 	private void Move()
@@ -101,7 +100,7 @@ public class PlayerControl : MonoBehaviour
 	private IEnumerator Dash()
 	{
 		dash = dashForce;
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(timeDash);
 		dash = 0.0f;
 	}
 
