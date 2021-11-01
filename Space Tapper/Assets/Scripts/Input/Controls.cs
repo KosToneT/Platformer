@@ -109,7 +109,7 @@ public class @Controls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b3a150fc-850d-4916-a72a-6311a5b4a09d"",
+                    ""id"": ""157a12b7-aec5-4475-bfe7-125002138bf4"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",

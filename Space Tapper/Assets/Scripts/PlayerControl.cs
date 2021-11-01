@@ -37,12 +37,9 @@ public class PlayerControl : MonoBehaviour
 	private void Awake()
     {
 		rb = GetComponent<Rigidbody2D>();
-	}
 
-    private void Start()
-    {
 		Controller.controller.Inputs.Main.Jump.performed += _ => Jump();
-    }
+	}
 
     private void FixedUpdate()
 	{
