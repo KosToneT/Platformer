@@ -11,15 +11,17 @@ public class PlayerControl : MonoBehaviour
 	private Vector3 direction;
 
 	[Header("Переменные перемещения")]
+	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true
 	[SerializeField] private float speedRun = 10;
 	[SerializeField] private float timeSmooth = 0.12f;
 	private Vector2 speed;
 	private Vector2 acceleration;
-	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true
-
+	
 	[Header("Переменные прыжка")]
-	[SerializeField] private float jumpForce;
 	[SerializeField] private bool isGrounded;
+	[SerializeField] private float jumpForce;
+	[SerializeField] private int maxJumpCount = 2;
+	private float jumpCount;
 
 	[Header("Переменные дэша")]
 	[SerializeField] private float dashForce = 0.5f;
@@ -91,10 +93,12 @@ public class PlayerControl : MonoBehaviour
 
 	private void Jump()
     {
-		if (isGrounded)
-		{
+		if (jumpCount > 0)
+		{ 
 			rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+			jumpCount--;
 		}
+
 	}
 
 	private IEnumerator Dash()
@@ -106,20 +110,31 @@ public class PlayerControl : MonoBehaviour
 
 	private void OnCollisionStay2D(Collision2D coll)
 	{
-		//rb.drag = 10;
-		isGrounded = true;
+		if (coll.gameObject.tag == "Ground")
+		{
+			//rb.drag = 10;
+			isGrounded = true;
+		}
 	}
 
 	private void OnCollisionEnter2D(Collision2D coll)
 	{
-		//rb.drag = 10;
-		isGrounded = true;
+		
+		if (coll.gameObject.tag == "Ground")
+		{
+			//rb.drag = 10;
+			isGrounded = true;
+			jumpCount = maxJumpCount;
+		}
 	}
 
 	private void OnCollisionExit2D(Collision2D coll)
 	{
-		//rb.drag = 0;
-		isGrounded = false;
+		if (coll.gameObject.tag == "Ground")
+		{
+			//rb.drag = 0;
+			isGrounded = false;
+		}
 	}
 
 	private void Flip() // - Разворот персонажа

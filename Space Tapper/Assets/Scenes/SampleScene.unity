@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -231,6 +232,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3ead078a392a340a9fb8caa243a943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  dumping: 1.5
+  offset: {x: 2, y: 1}
+  isLeft: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -301,7 +318,7 @@ GameObject:
   - component: {fileID: 545911733}
   m_Layer: 8
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -433,13 +450,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad1e225d1e90224695aabe939eddff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedRun: 10
-  timeSmooth: 0.12
   isFacingRight: 1
-  jumpForce: 7.5
+  speedRun: 10
+  timeSmooth: 0.05
   isGrounded: 0
-  dashForce: 3
-  dash: 0
+  jumpForce: 5
+  maxJumpCount: 2
+  dashForce: 10
+  timeDash: 0.2
   maxRay: 0.15
   minRay: 0.1
   radius: 0.43
@@ -465,7 +483,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 98d2818ec48a87a46bc267dbf25aff36, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!4 &1551494321
 Transform:
@@ -611,11 +629,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 1882916488}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 98d2818ec48a87a46bc267dbf25aff36, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006057322, y: -0.5116981}
+  m_Offset: {x: 0.006057322, y: -0.48970652}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -626,7 +644,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.86673844, y: 0.106065035}
+  m_Size: {x: 0.86673844, y: 0.14044571}
   m_EdgeRadius: 0
 --- !u!1 &1939058361
 GameObject:
@@ -641,7 +659,7 @@ GameObject:
   - component: {fileID: 1939058362}
   m_Layer: 8
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
