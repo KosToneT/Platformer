@@ -8,7 +8,6 @@ public class PlayerControl : MonoBehaviour
 	[Header("Компоненты")]
 	private Rigidbody2D rb;
 	private Collision coll;
-	private Vector3 direction;
 
 	[Header("Переменные перемещения")]
 	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true
@@ -106,21 +105,6 @@ public class PlayerControl : MonoBehaviour
 		yield return new WaitForSeconds(timeDash);
 		dash = 0.0f;
 		hasDashed = !hasDashed;
-	}
-
-	private void OnCollisionStay2D(Collision2D coll)
-	{
-
-	}
-
-	private void OnCollisionEnter2D(Collision2D coll)
-	{
-
-	}
-
-	private void OnCollisionExit2D(Collision2D coll)
-	{
-
 	}
 
 	private void Flip() // - Разворот персонажа

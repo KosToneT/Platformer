@@ -44,4 +44,19 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
     }
+
+    private void OnCollisionStay2D(Collision2D coll)
+    {
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+
+    }
+
+    private void OnCollisionExit2D(Collision2D coll)
+    {
+
+    }
 }

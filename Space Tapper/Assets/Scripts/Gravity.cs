@@ -36,19 +36,4 @@ public class Gravity : MonoBehaviour
         player.isFacingRight = !player.isFacingRight;
         top = !top;
     }
-
-    private void OnCollisionStay2D(Collision2D coll)
-    {
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D coll)
-    {
-
-    }
-
-    private void OnCollisionExit2D(Collision2D coll)
-    {
-
-    }
 }
