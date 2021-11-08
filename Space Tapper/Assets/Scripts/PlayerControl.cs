@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -8,6 +7,7 @@ public class PlayerControl : MonoBehaviour
 {
 	[Header("Компоненты")]
 	private Rigidbody2D rb;
+	private Collision coll;
 	private Vector3 direction;
 
 	[Header("Переменные перемещения")]
@@ -18,7 +18,6 @@ public class PlayerControl : MonoBehaviour
 	private Vector2 acceleration;
 	
 	[Header("Переменные прыжка")]
-	[SerializeField] private bool isGrounded;
 	[SerializeField] private float jumpForce;
 	[SerializeField] private int maxJumpCount = 2;
 	private float jumpCount;
@@ -27,6 +26,7 @@ public class PlayerControl : MonoBehaviour
 	[SerializeField] private float dashForce = 0.5f;
 	[SerializeField] private float timeDash = 0.2f;
 	private float dash = 0.0f;
+	private bool hasDashed;
 
 	[Header("Защита от прохождение сквозь стены")]
 	[SerializeField] private float maxRay = 0.7f;
@@ -37,8 +37,10 @@ public class PlayerControl : MonoBehaviour
 	private void Awake()
     {
 		rb = GetComponent<Rigidbody2D>();
+		coll = GetComponent<Collision>();
 
 		Controller.controller.Inputs.Main.Jump.performed += _ => Jump();
+		Controller.controller.Inputs.Main.Dash.performed += _ => StartCoroutine(Dash());
 	}
 
     private void FixedUpdate()
@@ -52,14 +54,14 @@ public class PlayerControl : MonoBehaviour
 
 		Move();
 
-		float side = Controller.controller.Inputs.Main.Dash.ReadValue<float>();
-		if(side > 0)
+        if (coll.onGround)
+        {
+			jumpCount = maxJumpCount;
+		}
+
+		if(hasDashed)
 		{
 			speed += speed.normalized * dash;
-			if (dash == 0.0f)
-			{
-				StartCoroutine(Dash());
-			}
 		}
 	}
 
@@ -95,43 +97,30 @@ public class PlayerControl : MonoBehaviour
 			rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 			jumpCount--;
 		}
-
 	}
 
 	private IEnumerator Dash()
 	{
+		hasDashed = true;
 		dash = dashForce;
 		yield return new WaitForSeconds(timeDash);
 		dash = 0.0f;
+		hasDashed = !hasDashed;
 	}
 
 	private void OnCollisionStay2D(Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Ground")
-		{
-			//rb.drag = 10;
-			isGrounded = true;
-		}
+
 	}
 
 	private void OnCollisionEnter2D(Collision2D coll)
 	{
-		
-		if (coll.gameObject.tag == "Ground")
-		{
-			//rb.drag = 10;
-			isGrounded = true;
-			jumpCount = maxJumpCount;
-		}
+
 	}
 
 	private void OnCollisionExit2D(Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Ground")
-		{
-			//rb.drag = 0;
-			isGrounded = false;
-		}
+
 	}
 
 	private void Flip() // - Разворот персонажа

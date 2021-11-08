@@ -111,7 +111,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""157a12b7-aec5-4475-bfe7-125002138bf4"",
                     ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
