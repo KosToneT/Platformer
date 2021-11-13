@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
@@ -9,7 +7,7 @@ public class CameraControl : MonoBehaviour
 
     [SerializeField] private float dumping = 1.5f;
     [SerializeField] private Vector2 offset = new Vector2(2f, 1f);
-    [SerializeField] private bool isLeft;
+    private bool isLeft;
     private int lastX;
 
     void Start()

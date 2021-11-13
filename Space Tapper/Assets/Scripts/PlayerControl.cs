@@ -39,6 +39,7 @@ public class PlayerControl : MonoBehaviour
 		coll = GetComponent<Collision>();
 
 		Controller.controller.Inputs.Main.Jump.performed += _ => Jump();
+		Controller.controller.Inputs.Main.Gravity.performed += _ => Ratate();
 		Controller.controller.Inputs.Main.Dash.performed += _ => StartCoroutine(Dash());
 	}
 
@@ -113,6 +114,23 @@ public class PlayerControl : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	private bool top;
+	void Ratate()
+	{
+		rb.gravityScale *= -1;
+
+		if (top == false)
+		{
+			transform.eulerAngles = new Vector3(0, 0, 180);
+		}
+		else
+		{
+			transform.eulerAngles = Vector3.zero;
+		}
+
+		top = !top;
 	}
 
 }

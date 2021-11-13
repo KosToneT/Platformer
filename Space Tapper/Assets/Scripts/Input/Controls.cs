@@ -49,6 +49,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Gravity"",
+                    ""type"": ""Button"",
+                    ""id"": ""d08493d0-ecf3-4a6f-aaed-e7190cdde737"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -117,6 +125,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b2809f1-eb41-4fe8-b005-f598fcab2b84"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gravity"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -129,6 +148,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
         m_Main_Fire = m_Main.FindAction("Fire", throwIfNotFound: true);
         m_Main_Dash = m_Main.FindAction("Dash", throwIfNotFound: true);
+        m_Main_Gravity = m_Main.FindAction("Gravity", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,6 +202,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Main_Jump;
     private readonly InputAction m_Main_Fire;
     private readonly InputAction m_Main_Dash;
+    private readonly InputAction m_Main_Gravity;
     public struct MainActions
     {
         private @Controls m_Wrapper;
@@ -190,6 +211,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
         public InputAction @Fire => m_Wrapper.m_Main_Fire;
         public InputAction @Dash => m_Wrapper.m_Main_Dash;
+        public InputAction @Gravity => m_Wrapper.m_Main_Gravity;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +233,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDash;
+                @Gravity.started -= m_Wrapper.m_MainActionsCallbackInterface.OnGravity;
+                @Gravity.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnGravity;
+                @Gravity.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnGravity;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +252,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Gravity.started += instance.OnGravity;
+                @Gravity.performed += instance.OnGravity;
+                @Gravity.canceled += instance.OnGravity;
             }
         }
     }
@@ -237,5 +265,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnGravity(InputAction.CallbackContext context);
     }
 }
