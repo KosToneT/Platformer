@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
 	[Header("Компоненты")]
-	private Rigidbody2D rb;
+	public Rigidbody2D rb;
 	private Collision coll;
 
 	[Header("Переменные перемещения")]
@@ -116,7 +116,7 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	private bool top;
+	public bool top = false;
 	void Ratate()
 	{
 		rb.gravityScale *= -1;

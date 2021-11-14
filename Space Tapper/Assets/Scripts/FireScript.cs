@@ -7,7 +7,7 @@ public class FireScript : MonoBehaviour
 	[SerializeField] private Transform gunPoint; // - точка рождения
 
 	[Header("parameters")]
-	[SerializeField] private float speed = 10; // - скорость пули
+	[SerializeField] public float speed = 40; // - скорость пули
 	[SerializeField] private float fireRate = 15; // - скорострельность
 
 	private float curTimeout;
@@ -24,17 +24,16 @@ public class FireScript : MonoBehaviour
 		{
 			curTimeout = 100;
 		}
-
 	}
 
 	void Fire()
-	{
-		
+	{		
 		if (curTimeout > fireRate)
 		{
 			curTimeout = 0;
 			Rigidbody2D clone = Instantiate(bullet, gunPoint.position, Quaternion.identity) as Rigidbody2D;
-			clone.velocity = transform.TransformDirection(gunPoint.right * speed);
+
+			clone.velocity = transform.TransformDirection(gunPoint.right * speed);		
 			clone.transform.right = gunPoint.right;
 		}
 	}

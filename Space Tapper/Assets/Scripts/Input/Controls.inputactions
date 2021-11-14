@@ -104,6 +104,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2a5072c2-29a8-437a-af7e-47fe7b12770a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "157a12b7-aec5-4475-bfe7-125002138bf4",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
