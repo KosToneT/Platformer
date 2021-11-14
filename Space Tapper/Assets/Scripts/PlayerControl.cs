@@ -58,7 +58,7 @@ public class PlayerControl : MonoBehaviour
         {
 			jumpCount = maxJumpCount;
 		}
-
+		
 		if(hasDashed)
 		{
 			speed += speed.normalized * dash;
@@ -93,8 +93,10 @@ public class PlayerControl : MonoBehaviour
 	private void Jump()
     {
 		if (jumpCount > 0)
-		{ 
-			rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+		{
+			//rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+			rb.velocity = new Vector2(rb.velocity.x, 0);
+			rb.velocity += Vector2.up * jumpForce;
 			jumpCount--;
 		}
 	}
