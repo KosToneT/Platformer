@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
 	[Header("Компоненты")]
-	public Rigidbody2D rb;
+	private Rigidbody2D rb;
 	private Collision coll;
 
 	[Header("Переменные перемещения")]
@@ -96,7 +96,16 @@ public class PlayerControl : MonoBehaviour
 		{
 			//rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 			rb.velocity = new Vector2(rb.velocity.x, 0);
-			rb.velocity += Vector2.up * jumpForce;
+
+            if (top)
+            {
+				rb.velocity += Vector2.down * jumpForce;
+			}
+			else
+            {
+				rb.velocity += Vector2.up * jumpForce;
+			}
+			
 			jumpCount--;
 		}
 	}

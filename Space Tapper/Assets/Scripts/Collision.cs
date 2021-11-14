@@ -3,6 +3,7 @@ using UnityEngine;
 public class Collision : MonoBehaviour
 {
 
+    private PlayerControl pControl;
     [Header("Layers")]
     [SerializeField] private LayerMask groundLayer;
 
@@ -22,9 +23,22 @@ public class Collision : MonoBehaviour
     [SerializeField] private Vector2 bottomOffset, rightOffset, leftOffset;
     private Color debugCollisionColor = Color.red;
 
+    private void Awake()
+    {
+        pControl = GetComponent<PlayerControl>();
+    }
+
     void Update()
     {
-        onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
+        if (pControl.top)
+        {
+            onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset * -1, collisionRadius, groundLayer);
+        }
+        else
+        {
+            onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
+        }
+        
         onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer)
             || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
 
