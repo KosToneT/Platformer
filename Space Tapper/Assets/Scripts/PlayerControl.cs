@@ -67,15 +67,24 @@ public class PlayerControl : MonoBehaviour
 
 	private void Move()
     {
-		float side = Controller.controller.Inputs.Main.Move.ReadValue<float>(); // направление игрока
+		float side = Controller.controller.Inputs.Main.Move.ReadValue<float>(); // направление игрока {L: -1, S: 0, R: 1}
 
 		speed = Vector2.SmoothDamp(speed, new Vector2(side, 0) * speedRun, ref acceleration, timeSmooth);
 
-		transform.Translate(speed * Time.fixedDeltaTime);
+        if (top)
+        {
+			transform.Translate(speed * -1 * Time.fixedDeltaTime);
+		}
+        else
+        {
+			transform.Translate(speed * Time.fixedDeltaTime);
+		}
+		
 
 		MoveRay();
 
 		if (side > 0 && !isFacingRight) Flip(); else if (side < 0 && isFacingRight) Flip();
+		//if (side != 0) ;
 	}
 
     private void MoveRay()
@@ -127,13 +136,14 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	public bool top = false;
+	private bool top = false;
 	void Ratate()
 	{
 		rb.gravityScale *= -1;
 
 		if (top == false)
 		{
+
 			transform.eulerAngles = new Vector3(0, 0, 180);
 		}
 		else
@@ -141,6 +151,7 @@ public class PlayerControl : MonoBehaviour
 			transform.eulerAngles = Vector3.zero;
 		}
 
+		isFacingRight = !isFacingRight;
 		top = !top;
 	}
 

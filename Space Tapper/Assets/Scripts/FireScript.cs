@@ -33,8 +33,8 @@ public class FireScript : MonoBehaviour
 			curTimeout = 0;
 			Rigidbody2D clone = Instantiate(bullet, gunPoint.position, Quaternion.identity) as Rigidbody2D;
 
-			clone.velocity = transform.TransformDirection(gunPoint.right * speed);		
-			clone.transform.right = gunPoint.right;
+			clone.velocity = transform.TransformDirection(gunPoint.right * speed);
+			clone.transform.forward = gunPoint.forward;
 		}
 	}
 }
