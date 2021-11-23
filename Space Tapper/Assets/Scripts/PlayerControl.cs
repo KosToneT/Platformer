@@ -136,7 +136,7 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	private bool top = false;
+	public bool top = false;
 	void Ratate()
 	{
 		rb.gravityScale *= -1;
