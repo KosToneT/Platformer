@@ -39,7 +39,7 @@ public class PlayerControl : MonoBehaviour
 		coll = GetComponent<Collision>();
 
 		Controller.controller.Inputs.Main.Jump.performed += _ => Jump();
-		Controller.controller.Inputs.Main.Gravity.performed += _ => Ratate();
+		//Controller.controller.Inputs.Main.Gravity.performed += _ => Ratate();
 		Controller.controller.Inputs.Main.Dash.performed += _ => StartCoroutine(Dash());
 	}
 
@@ -137,7 +137,7 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	public bool top = false;
-	void Ratate()
+	/*void Ratate()
 	{
 		rb.gravityScale *= -1;
 
@@ -153,6 +153,6 @@ public class PlayerControl : MonoBehaviour
 
 		isFacingRight = !isFacingRight;
 		top = !top;
-	}
+	}*/
 
 }
