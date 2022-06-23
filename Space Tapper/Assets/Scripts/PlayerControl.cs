@@ -1,0 +1,158 @@
+using System.Collections;
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
+
+public class PlayerControl : MonoBehaviour
+{
+	[Header("Компоненты")]
+	private Rigidbody2D rb;
+	private Collision coll;
+
+	[Header("Переменные перемещения")]
+	public bool isFacingRight = true; // - если на старте сцены персонаж смотрит вправо, то надо ставить true
+	[SerializeField] private float speedRun = 10;
+	[SerializeField] private float timeSmooth = 0.12f;
+	private Vector2 speed;
+	private Vector2 acceleration;
+	
+	[Header("Переменные прыжка")]
+	[SerializeField] private float jumpForce;
+	[SerializeField] private int maxJumpCount = 2;
+	private float jumpCount;
+
+	[Header("Переменные дэша")]
+	[SerializeField] private float dashForce = 0.5f;
+	[SerializeField] private float timeDash = 0.2f;
+	private float dash = 0.0f;
+	private bool hasDashed;
+
+	[Header("Защита от прохождение сквозь стены")]
+	[SerializeField] private float maxRay = 0.7f;
+	[SerializeField] private float minRay = 0.1f;
+	[SerializeField] private float radius = 0.1f;
+	[SerializeField] private LayerMask layerForCheckLevel;
+
+	private void Awake()
+    {
+		rb = GetComponent<Rigidbody2D>();
+		coll = GetComponent<Collision>();
+
+		Controller.controller.Inputs.Main.Jump.performed += _ => Jump();
+		//Controller.controller.Inputs.Main.Gravity.performed += _ => Ratate();
+		Controller.controller.Inputs.Main.Dash.performed += _ => StartCoroutine(Dash());
+	}
+
+    private void FixedUpdate()
+	{
+		//rb.AddForce(direction * rb.mass * speedRun);
+
+		//if (Mathf.Abs(rb.velocity.x) > speedRun / 100f)
+		//{
+		//	rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * speedRun / 100f, rb.velocity.y);
+		//}
+
+		Move();
+
+        if (coll.onGround)
+        {
+			jumpCount = maxJumpCount;
+		}
+		
+		if(hasDashed)
+		{
+			speed += speed.normalized * dash;
+		}
+	}
+
+	private void Move()
+    {
+		float side = Controller.controller.Inputs.Main.Move.ReadValue<float>(); // направление игрока {L: -1, S: 0, R: 1}
+
+		speed = Vector2.SmoothDamp(speed, new Vector2(side, 0) * speedRun, ref acceleration, timeSmooth);
+
+        if (top)
+        {
+			transform.Translate(speed * -1 * Time.fixedDeltaTime);
+		}
+        else
+        {
+			transform.Translate(speed * Time.fixedDeltaTime);
+		}
+		
+
+		MoveRay();
+
+		if (side > 0 && !isFacingRight) Flip(); else if (side < 0 && isFacingRight) Flip();
+		//if (side != 0) ;
+	}
+
+    private void MoveRay()
+    {
+		float disRay = speed.magnitude;
+		disRay = Mathf.Clamp(disRay, minRay, maxRay);
+		Debug.DrawRay(transform.position, speed.normalized * disRay, Color.black);
+		if(Physics2D.CircleCast(transform.position, radius, speed, disRay, layerForCheckLevel))
+        {
+			speed = Vector2.zero;
+			acceleration = Vector2.zero;
+        }
+    }
+
+	private void Jump()
+    {
+		if (jumpCount > 0)
+		{
+			//rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+			rb.velocity = new Vector2(rb.velocity.x, 0);
+
+            if (top)
+            {
+				rb.velocity += Vector2.down * jumpForce;
+			}
+			else
+            {
+				rb.velocity += Vector2.up * jumpForce;
+			}
+			
+			jumpCount--;
+		}
+	}
+
+	private IEnumerator Dash()
+	{
+		hasDashed = true;
+		dash = dashForce;
+		yield return new WaitForSeconds(timeDash);
+		dash = 0.0f;
+		hasDashed = !hasDashed;
+	}
+
+	private void Flip() // - Разворот персонажа
+	{
+		isFacingRight = !isFacingRight;
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+	}
+
+	public bool top = false;
+	/*void Ratate()
+	{
+		rb.gravityScale *= -1;
+
+		if (top == false)
+		{
+
+			transform.eulerAngles = new Vector3(0, 0, 180);
+		}
+		else
+		{
+			transform.eulerAngles = Vector3.zero;
+		}
+
+		isFacingRight = !isFacingRight;
+		top = !top;
+	}*/
+
+}
